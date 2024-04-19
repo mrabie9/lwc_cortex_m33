@@ -1,0 +1,9 @@
+logs/*
+*.txt
+*.csv
+*.stpm
+Build/*
+.vscode/*
+Data/Power/'zip files'
+Data/Power/python_plots/01_stpm files
+Data/Power/python_plots/02_csv_dir
