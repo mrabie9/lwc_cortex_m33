@@ -295,29 +295,29 @@ int main(void)
     // Sync before app execution
     // HAL_Delay(10000);
 		// sync();
-    float discard;
+    float discard1, discard2, discard3;
     double encrypt, decrypt;
     // HAL_GPIO_TogglePin(LED1_GPIO_PORT, LED1_PIN);
     // HAL_GPIO_TogglePin(LED2_GPIO_PORT, LED2_PIN);
     // HAL_GPIO_TogglePin(LED3_GPIO_PORT, LED3_PIN);
     HAL_Delay(3000);
+    // HAL_UART_Receive(&huart2, &discard1, 4, 2000);
     // HAL_GPIO_TogglePin(LED1_GPIO_PORT, LED1_PIN);
     // HAL_GPIO_TogglePin(LED2_GPIO_PORT, LED2_PIN);
     // HAL_GPIO_TogglePin(LED3_GPIO_PORT, LED3_PIN);
-    // HAL_UART_Receive(&huart2, &discard, 4, 2000);
     // KIN1_ResetCycleCounter();  /* reset cycle counter */
 		// KIN1_EnableCycleCounter(); /* start counting */
     
 		for(int i=0;i<N_LOOP;i++)
 			encrypt = ENCRYPT(c, clen, m, msglen, NULL, adlen, NULL, npub, k);
     // cycles_e = KIN1_GetCycleCounter(); /* get cycle counter */
-    // HAL_UART_Receive(&huart2, &discard, 4, 3000);
     // KIN1_ResetCycleCounter();  /* reset cycle counter */
 		// KIN1_EnableCycleCounter(); /* start counting */
     // HAL_GPIO_TogglePin(LED1_GPIO_PORT, LED1_PIN);
     // HAL_GPIO_TogglePin(LED2_GPIO_PORT, LED2_PIN);
     // HAL_GPIO_TogglePin(LED3_GPIO_PORT, LED3_PIN);
     HAL_Delay(3000);
+    // HAL_UART_Receive(&huart2, &discard2, 4, 3000);
     // HAL_GPIO_TogglePin(LED1_GPIO_PORT, LED1_PIN);
     // HAL_GPIO_TogglePin(LED2_GPIO_PORT, LED2_PIN);
     // HAL_GPIO_TogglePin(LED3_GPIO_PORT, LED3_PIN);
@@ -325,7 +325,15 @@ int main(void)
 		for(int i=0;i<N_LOOP;i++)
 		  decrypt = DECRYPT(dt, mlen, NULL, c, *clen, NULL, adlen, npub, k);
     // cycles_d = KIN1_GetCycleCounter(); /* get cycle counter */
-    HAL_Delay(2000);  
+    // HAL_GPIO_TogglePin(LED1_GPIO_PORT, LED1_PIN);
+    // HAL_GPIO_TogglePin(LED2_GPIO_PORT, LED2_PIN);
+    // HAL_GPIO_TogglePin(LED3_GPIO_PORT, LED3_PIN);
+    HAL_Delay(2000);
+    // HAL_UART_Receive(&huart2, &discard3, 4, 3000);
+    // HAL_GPIO_TogglePin(LED1_GPIO_PORT, LED1_PIN);
+    // HAL_GPIO_TogglePin(LED2_GPIO_PORT, LED2_PIN);
+    // HAL_GPIO_TogglePin(LED3_GPIO_PORT, LED3_PIN);  
+    
     // Checksum
     // uint32_t dt_int;
     // for (int i=0;i<MSG_SIZE_INT;i++){
@@ -334,9 +342,12 @@ int main(void)
     //     err_c += 1;
     // }
     
-    send_serial(&discard, 4);
+    
     // Send data
 		send_app_runtime(cycles_e);
+    send_serial(&discard1, 4);
+    send_serial(&discard2, 4);
+    send_serial(&discard3, 4);
     send_runtime(cycles_d);
     send_output(encrypt);
 		send_output(decrypt);
