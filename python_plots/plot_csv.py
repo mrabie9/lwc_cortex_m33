@@ -41,6 +41,7 @@ class AUT(Enum):
     xoodyak_enc_dec_1000x = 18
     romulusn_enc_dec_50x = 19
     romulusnOpt_enc_dec_50x = 20
+    romulusnOpt_enc_dec_500x = 20
     eleph_enc_dec_10x = 21
     grain_enc_dec_10x = 22
     photon_enc_dec_15x = 23
@@ -87,118 +88,131 @@ energy_calc = True#FalseFalse#True#False#True#FalseFalse#True#False#True#FalseFa
 # data_dir = "../Data/Power/python_plots/02_csv_dir/02_run2/O0/isapa128a_enc_dec_500x/"
 # output = "../Data/Power/python_plots/00_Output/02_run2/O0/isapa128a_enc_dec_500x.txt"
 row = 3
+# timestamps = { # regex : \{.*
+#     'O2': {
+#         'row' : 107,#20,
+#         'ascon128_enc_dec_1000x': {'start_e': 2.37403, 'stop_e': 11.93094, 'start_d': 14.90399, 'stop_d': 24.74912}, 
+#         'ascon128Armv7_enc_dec_1000x': {'start_e': 2.41037, 'stop_e': 7.12427, 'start_d': 10.09707, 'stop_d': 14.78279}, 
+#         'ascon128a_enc_dec_1000x': {'start_e': 2.26570, 'stop_e': 9.35680, 'start_d': 12.32949, 'stop_d': 19.59281}, 
+#         'ascon128aArmv7_enc_dec_1000x': {'start_e': 2.46397, 'stop_e': 5.60806, 'start_d': 8.58053, 'stop_d': 11.69660}, 
+#         'isapa128_enc_dec_500x': {'start_e': 1.94453, 'stop_e': 35.74720, 'start_d': 38.71993, 'stop_d': 72.51813}, 
+#         'isapa128Armv7_enc_dec_500x': {'start_e': 1.48069, 'stop_e': 9.52244, 'start_d': 12.49405, 'stop_d': 20.53584}, # REDO - FIXED
+#         'isapa128a_enc_dec_500x': {'start_e': 2.53140, 'stop_e': 30.96853, 'start_d': 33.94171, 'stop_d': 62.37519}, 
+#         'isapa128aArmv7_enc_dec_500x': {'start_e': 0.98882, 'stop_e': 6.92288, 'start_d': 9.89398, 'stop_d': 15.86115}, # REDO - FIXED
+#         'sparkle128_enc_dec_1000x': {'start_e': 1.95622, 'stop_e': 9.52979, 'start_d': 12.50296, 'stop_d': 20.30800}, 
+#         'sparkle128Armv7_enc_dec_1000x': {'start_e': 2.58273, 'stop_e': 5.17262, 'start_d': 8.14516, 'stop_d': 10.73963}, 
+#         'sparkle256_enc_dec_1000x': {'start_e': 2.45116, 'stop_e': 12.88297, 'start_d': 15.85568, 'stop_d': 26.53489}, 
+#         'sparkle256Armv7_enc_dec_1000x': {'start_e': 2.64624, 'stop_e': 6.67907, 'start_d': 9.65174, 'stop_d': 13.64965}, 
+#         'tinyjambu_enc_dec_1000x': {'start_e': 2.59973, 'stop_e': 22.06532, 'start_d': 25.03722, 'stop_d': 44.44419}, 
+#         'tinyjambuOpt_enc_dec_1000x': {'start_e': 1.83795, 'stop_e': 13.80457, 'start_d': 16.77720, 'stop_d': 28.68823}, 
+#         'giftc_enc_dec_200x': {'start_e': 2.49195, 'stop_e': 44.29604, 'start_d': 47.26853, 'stop_d': 89.12032}, 
+#         'xoodyak_enc_dec_1000x': {'start_e': 2.44206, 'stop_e': 41.17063, 'start_d': 44.14307, 'stop_d': 82.73165}, 
+#         'romulusn_enc_dec_50x': {'start_e': 1.40665, 'stop_e': 15.43084, 'start_d': 18.40201, 'stop_d': 32.43559}, #extremely sus - FIXED
+#         'romulusnOpt_enc_dec_500x': {'start_e': 1.41417, 'stop_e': 12.92835, 'start_d': 15.65927, 'stop_d': 27.40819}, #extremely - FIXED
+#         'eleph_enc_dec_10x': {'start_e': 2.38288, 'stop_e': 32.31490, 'start_d': 35.28806, 'stop_d': 65.21822}, 
+#         'grain_enc_dec_10x': {'start_e': 2.45870, 'stop_e': 30.85500, 'start_d': 33.83369, 'stop_d': 62.14700}, 
+#         'photon_enc_dec_15x': {'start_e': 1.91234, 'stop_e': 33.09888, 'start_d': 36.07207, 'stop_d': 67.25459}, 
+#     },
+
+#     'O3': {
+#         ## O3 (with sync)
+#         'row' : 108,#37,
+#         'ascon128_enc_dec_1000x': {'start_e': 1.02250, 'stop_e': 8.81070, 'start_d': 11.78294, 'stop_d': 19.62652}, 
+#         'ascon128Armv7_enc_dec_1000x': {'start_e': 1.39305, 'stop_e': 6.10744, 'start_d': 9.08072, 'stop_d': 13.76701},
+#         'ascon128a_enc_dec_1000x': {'start_e': 1.37368, 'stop_e': 6.60820, 'start_d': 9.58163, 'stop_d': 14.90931}, 
+#         'ascon128aArmv7_enc_dec_1000x': {'start_e': 2.40502, 'stop_e': 5.54851, 'start_d': 8.52026, 'stop_d': 11.63554}, #SUS - redo w/LEDs - FIXED
+#         'isapa128_enc_dec_500x': {'start_e': 1.29696, 'stop_e': 25.53046, 'start_d': 28.50220, 'stop_d': 52.70238}, 
+#         'isapa128Armv7_enc_dec_500x': {'start_e': 1.31951, 'stop_e': 9.32562, 'start_d': 12.29804, 'stop_d': 20.30366}, 
+#         'isapa128a_enc_dec_500x': {'start_e': 0.76078, 'stop_e': 19.73634, 'start_d': 22.70885, 'stop_d': 41.68275}, 
+#         'isapa128aArmv7_enc_dec_500x': {'start_e': 2.25767, 'stop_e': 8.16095, 'start_d': 11.13429, 'stop_d': 17.03804}, #SUS start - redo w/LEDs & delay - FIXED
+#         'sparkle128_enc_dec_1000x': {'start_e': 1.43160, 'stop_e': 8.39933, 'start_d': 11.36713, 'stop_d': 18.58036}, #SUS start - redo w/delay - FIXED
+#         'sparkle128Armv7_enc_dec_1000x': {'start_e': 1.41833, 'stop_e': 3.90840, 'start_d': 6.88102, 'stop_d': 9.37518}, 
+#         'sparkle256_enc_dec_1000x': {'start_e': 1.57660, 'stop_e': 11.24437, 'start_d': 14.21624, 'stop_d': 24.08220}, 
+#         'sparkle256Armv7_enc_dec_1000x': {'start_e': 1.50846, 'stop_e': 5.54791, 'start_d': 8.52011, 'stop_d': 12.54082}, 
+#         'tinyjambu_enc_dec_1000x': {'start_e': 1.41202, 'stop_e': 17.25013, 'start_d': 20.22312, 'stop_d': 36.05926}, 
+#         'tinyjambuOpt_enc_dec_1000x': {'start_e': 1.39317, 'stop_e': 13.33886, 'start_d': 16.31070, 'stop_d': 28.23758}, 
+#         'giftc_enc_dec_200x': {'start_e': 1.29737, 'stop_e': 20.09049, 'start_d': 23.06211, 'stop_d': 41.84347}, 
+#         'xoodyak_enc_dec_1000x': {'start_e': 1.48747, 'stop_e': 15.61579, 'start_d': 18.58829, 'stop_d': 32.56706}, 
+#         'romulusn_enc_dec_50x': {'start_e': 1.36210, 'stop_e': 6.62992, 'start_d': 9.60220, 'stop_d': 14.87715}, 
+#         'romulusnOpt_enc_dec_50x': {'start_e': 1.01335, 'stop_e': 2.16433, 'start_d': 5.13682, 'stop_d': 6.29749}, 
+#         'eleph_enc_dec_10x': {'start_e': 0.75621, 'stop_e': 20.14343, 'start_d': 23.11606, 'stop_d': 42.50315}, 
+#         'grain_enc_dec_10x': {'start_e': 0.88573, 'stop_e': 28.13817, 'start_d': 31.10991, 'stop_d': 58.24122}, 
+#         'photon_enc_dec_15x': {'start_e': 1.51557, 'stop_e': 19.81075, 'start_d': 22.77781, 'stop_d': 41.06898}, 
+#     }, 
+
+#     'Os': {
+#     #     ## Os (with sync)
+#         'row' : 109,#54,
+#         'ascon128_enc_dec_1000x': {'start_e': 2.41304, 'stop_e': 15.75085, 'start_d': 18.72286, 'stop_d': 32.17177}, 
+#         'ascon128Armv7_enc_dec_1000x': {'start_e': 1.86693, 'stop_e': 6.56237, 'start_d': 9.53527, 'stop_d': 14.28603}, 
+#         'ascon128a_enc_dec_1000x': {'start_e': 2.56514, 'stop_e': 12.48843, 'start_d': 15.46047, 'stop_d': 25.48190}, 
+#         'ascon128aArmv7_enc_dec_1000x': {'start_e': 2.45464, 'stop_e': 5.54786, 'start_d': 8.52029, 'stop_d': 11.61796},
+#         'isapa128_enc_dec_500x': {'start_e': 2.52457, 'stop_e': 43.73854, 'start_d': 46.71072, 'stop_d': 87.92560}, 
+#         'isapa128Armv7_enc_dec_500x': {'start_e': 2.48072, 'stop_e': 10.64315, 'start_d': 13.61578, 'stop_d': 21.77845}, 
+#         'isapa128a_enc_dec_500x': {'start_e': 2.33187, 'stop_e': 37.52490, 'start_d': 40.49805, 'stop_d': 75.68812}, 
+#         'isapa128aArmv7_enc_dec_500x': {'start_e': 2.51144, 'stop_e': 8.55285, 'start_d': 11.52593, 'stop_d': 17.56767}, 
+#         'sparkle128_enc_dec_1000x': {'start_e': 2.35007, 'stop_e': 10.37047, 'start_d': 13.34325, 'stop_d': 21.65767},
+#         'sparkle128Armv7_enc_dec_1000x': {'start_e': 2.52977, 'stop_e': 5.11364, 'start_d': 8.08648, 'stop_d': 10.67053}, 
+#         'sparkle256_enc_dec_1000x': {'start_e': 2.07569, 'stop_e': 13.29187, 'start_d': 16.26426, 'stop_d': 27.77032}, 
+#         'sparkle256Armv7_enc_dec_1000x': {'start_e': 2.37905, 'stop_e': 6.39388, 'start_d': 9.26414, 'stop_d': 13.26301}, 
+#         'tinyjambu_enc_dec_1000x': {'start_e': 2.46432, 'stop_e': 24.90874, 'start_d': 27.88129, 'stop_d': 50.30585}, 
+#         'tinyjambuOpt_enc_dec_1000x': {'start_e': 2.55719, 'stop_e': 16.51569, 'start_d': 19.48920, 'stop_d': 33.42918}, 
+#         'giftc_enc_dec_200x': {'start_e': 1.97305, 'stop_e': 41.96765, 'start_d': 44.94041, 'stop_d': 84.93631}, 
+#         'xoodyak_enc_dec_1000x': {'start_e': 2.59438, 'stop_e': 43.55850, 'start_d': 46.53142, 'stop_d': 87.35707}, 
+#         'romulusn_enc_dec_50x': {'start_e': 2.50744, 'stop_e': 19.61178, 'start_d': 22.58508, 'stop_d': 39.70875}, 
+#         'romulusnOpt_enc_dec_50x': {'start_e': 2.51312, 'stop_e': 3.66764, 'start_d': 6.64118, 'stop_d': 7.79345}, 
+#         'eleph_enc_dec_10x': {'start_e': 2.44766, 'stop_e': 39.11380, 'start_d': 42.08640, 'stop_d': 78.74528}, 
+#         'grain_enc_dec_10x': {'start_e': 2.46674, 'stop_e': 33.17888, 'start_d': 36.15913, 'stop_d': 66.77305}, 
+#         'photon_enc_dec_15x': {'start_e': 2.55105, 'stop_e': 37.63255, 'start_d': 40.60511, 'stop_d': 75.68681}, 
+#     }    
+# }
+
+rerun = True
 timestamps = { # regex : \{.*
-    ## Run 2 start: O0 (with sync) 
-    # 'O0': {
-    #     'row' : 3,
-    #     'ascon128_enc_dec_1000x': {'start_e': , 'stop_e': , 'start_d': , 'stop_d': }, 
-    #     'ascon128a_enc_dec_1000x': {'start_e': , 'stop_e': , 'start_d': , 'stop_d': }, 
-    #     'isapa128_enc_dec_500x': {'start_e': , 'stop_e': , 'start_d': , 'stop_d': }, 
-    #     'isapa128a_enc_dec_500x': {'start_e': , 'stop_e': , 'start_d': , 'stop_d': }, 
-    #     'sparkle128_enc_dec_1000x': {'start_e': , 'stop_e': , 'start_d': , 'stop_d': }, 
-    #     'sparkle256_enc_dec_1000x': {'start_e': , 'stop_e': , 'start_d': , 'stop_d': }, 
-    #     'tinyjambu_enc_dec_1000x': {'start_e': , 'stop_e': , 'start_d': , 'stop_d': }, 
-    #     'giftc_enc_dec_200x': {'start_e': , 'stop_e': , 'start_d': , 'stop_d': }, 
-    #     'xoodyak_enc_dec_1000x': {'start_e': , 'stop_e': , 'start_d': , 'stop_d': }, 
-    #     'romulusn_enc_dec_50x': {'start_e': , 'stop_e': , 'start_d': , 'stop_d': }, 
-    #     'eleph_enc_dec_10x': {'start_e': , 'stop_e': , 'start_d': , 'stop_d': }, 
-    #     'grain_enc_dec_10x': {'start_e': , 'stop_e': , 'start_d': , 'stop_d': }, 
-    #     'photon_enc_dec_15x': {'start_e': , 'stop_e': , 'start_d': , 'stop_d': }, 
-    # },
-
-    'O2': {
-        'row' : 20,
-        'ascon128_enc_dec_1000x': {'start_e': 2.37403, 'stop_e': 11.93094, 'start_d': 14.90399, 'stop_d': 24.74912}, 
-        'ascon128Armv7_enc_dec_1000x': {'start_e': 2.41037, 'stop_e': 7.12427, 'start_d': 10.09707, 'stop_d': 14.78279}, 
-        'ascon128a_enc_dec_1000x': {'start_e': 2.26570, 'stop_e': 9.35680, 'start_d': 13.32949, 'stop_d': 19.59281}, 
-        'ascon128aArmv7_enc_dec_1000x': {'start_e': 2.46397, 'stop_e': 5.60806, 'start_d': 8.58053, 'stop_d': 11.69660}, 
-        'isapa128_enc_dec_500x': {'start_e': 1.94453, 'stop_e': 35.74720, 'start_d': 38.71993, 'stop_d': 72.51813}, 
-        'isapa128Armv7_enc_dec_500x': {'start_e': 2.18584, 'stop_e': 10.23172, 'start_d': 13.20501, 'stop_d': 23.23334}, 
-        'isapa128a_enc_dec_500x': {'start_e': 2.53140, 'stop_e': 30.96853, 'start_d': 33.94171, 'stop_d': 62.37519}, 
-        'isapa128aArmv7_enc_dec_500x': {'start_e': 2.56111, 'stop_e': 8.49112, 'start_d': 11.47124, 'stop_d': 19.39531}, 
-        'sparkle128_enc_dec_1000x': {'start_e': 1.95622, 'stop_e': 9.52979, 'start_d': 12.50296, 'stop_d': 20.30800}, 
-        'sparkle128Armv7_enc_dec_1000x': {'start_e': 2.58273, 'stop_e': 5.17262, 'start_d': 8.14516, 'stop_d': 10.73963}, 
-        'sparkle256_enc_dec_1000x': {'start_e': 2.45116, 'stop_e': 12.88297, 'start_d': 15.85568, 'stop_d': 26.53489}, 
-        'sparkle256Armv7_enc_dec_1000x': {'start_e': 2.64624, 'stop_e': 6.67907, 'start_d': 9.65174, 'stop_d': 13.64965}, 
-        'tinyjambu_enc_dec_1000x': {'start_e': 2.59973, 'stop_e': 22.06532, 'start_d': 25.03722, 'stop_d': 44.44419}, 
-        'tinyjambuOpt_enc_dec_1000x': {'start_e': 1.83795, 'stop_e': 13.80457, 'start_d': 16.77720, 'stop_d': 28.68823}, 
-        'giftc_enc_dec_200x': {'start_e': 2.49195, 'stop_e': 44.29604, 'start_d': 47.26853, 'stop_d': 89.12032}, 
-        'xoodyak_enc_dec_1000x': {'start_e': 2.44206, 'stop_e': 41.17063, 'start_d': 44.14307, 'stop_d': 82.73165}, 
-        'romulusn_enc_dec_50x': {'start_e': 2.17843, 'stop_e': 16.07612, 'start_d': 19.06999, 'stop_d': 35.09039}, #extremely sus
-        'romulusnOpt_enc_dec_50x': {'start_e': 1.95808, 'stop_e': 6.12440, 'start_d': 9.21669, 'stop_d': 15.21800}, #extremely
-        'eleph_enc_dec_10x': {'start_e': 2.38288, 'stop_e': 32.31490, 'start_d': 35.28806, 'stop_d': 65.21822}, 
-        'grain_enc_dec_10x': {'start_e': 2.45870, 'stop_e': 30.85500, 'start_d': 33.83369, 'stop_d': 62.14700}, 
-        'photon_enc_dec_15x': {'start_e': 1.91234, 'stop_e': 33.09888, 'start_d': 36.07207, 'stop_d': 67.25459}, 
-    },
-
-    'O3': {
-        ## O3 (with sync)
-        'row' : 37,
-        'ascon128_enc_dec_1000x': {'start_e': 1.02250, 'stop_e': 8.81070, 'start_d': 11.78294, 'stop_d': 19.62652}, 
-        'ascon128Armv7_enc_dec_1000x': {'start_e': 1.39305, 'stop_e': 6.10744, 'start_d': 9.08072, 'stop_d': 13.76701}, #SUS
-        'ascon128a_enc_dec_1000x': {'start_e': 1.37368, 'stop_e': 6.60820, 'start_d': 9.58163, 'stop_d': 14.90931}, 
-        'ascon128aArmv7_enc_dec_1000x': {'start_e': 1.25941, 'stop_e': 7.50325, 'start_d': 10.49183, 'stop_d': 15.50772}, #SUS
-        'isapa128_enc_dec_500x': {'start_e': 1.29696, 'stop_e': 25.53046, 'start_d': 28.50220, 'stop_d': 52.70238}, 
-        'isapa128Armv7_enc_dec_500x': {'start_e': 1.31951, 'stop_e': 9.32562, 'start_d': 12.29804, 'stop_d': 20.30366}, 
-        'isapa128a_enc_dec_500x': {'start_e': 0.76078, 'stop_e': 19.73634, 'start_d': 22.70885, 'stop_d': 41.68275}, 
-        'isapa128aArmv7_enc_dec_500x': {'start_e': 0.27230, 'stop_e': 5.70411, 'start_d': 8.67663, 'stop_d': 14.57444}, #SUS start
-        'sparkle128_enc_dec_1000x': {'start_e': 0.80780, 'stop_e': 7.56849, 'start_d': 10.54068, 'stop_d': 17.74982}, #SUS start
-        'sparkle128Armv7_enc_dec_1000x': {'start_e': 1.41833, 'stop_e': 3.90840, 'start_d': 6.88102, 'stop_d': 9.37518}, 
-        'sparkle256_enc_dec_1000x': {'start_e': 1.57660, 'stop_e': 11.24437, 'start_d': 14.21624, 'stop_d': 24.08220}, 
-        'sparkle256Armv7_enc_dec_1000x': {'start_e': 1.50846, 'stop_e': 5.54791, 'start_d': 8.52011, 'stop_d': 12.54082}, 
-        'tinyjambu_enc_dec_1000x': {'start_e': 1.41202, 'stop_e': 17.25013, 'start_d': 20.22312, 'stop_d': 36.05926}, 
-        'tinyjambuOpt_enc_dec_1000x': {'start_e': 1.39317, 'stop_e': 13.33886, 'start_d': 16.31070, 'stop_d': 28.23758}, 
-        'giftc_enc_dec_200x': {'start_e': 1.29737, 'stop_e': 20.09049, 'start_d': 23.06211, 'stop_d': 41.84347}, 
-        'xoodyak_enc_dec_1000x': {'start_e': 1.48747, 'stop_e': 15.61579, 'start_d': 18.58829, 'stop_d': 32.56706}, 
-        'romulusn_enc_dec_50x': {'start_e': 1.36210, 'stop_e': 6.62992, 'start_d': 9.60220, 'stop_d': 14.87715}, 
-        'romulusnOpt_enc_dec_50x': {'start_e': 1.01335, 'stop_e': 2.16433, 'start_d': 5.13682, 'stop_d': 6.29749}, 
-        'eleph_enc_dec_10x': {'start_e': 0.75621, 'stop_e': 20.14343, 'start_d': 23.11606, 'stop_d': 42.50315}, 
-        'grain_enc_dec_10x': {'start_e': 0.88573, 'stop_e': 28.13817, 'start_d': 31.10991, 'stop_d': 58.24122}, 
-        'photon_enc_dec_15x': {'start_e': 1.51557, 'stop_e': 19.81075, 'start_d': 22.77781, 'stop_d': 41.06898}, 
-
-    }, 
-
     'Os': {
     #     ## Os (with sync)
-        'row' : 54,
-        'ascon128_enc_dec_1000x': {'start_e': 2.41304, 'stop_e': 15.75085, 'start_d': 18.72286, 'stop_d': 32.17177}, 
-        'ascon128Armv7_enc_dec_1000x': {'start_e': 1.86693, 'stop_e': 6.56237, 'start_d': 9.53527, 'stop_d': 14.28603}, 
-        'ascon128a_enc_dec_1000x': {'start_e': 2.56514, 'stop_e': 12.48843, 'start_d': 15.46047, 'stop_d': 25.48190}, 
-        'ascon128aArmv7_enc_dec_1000x': {'start_e': 2.45464, 'stop_e': 5.54786, 'start_d': 8.52029, 'stop_d': 11.61796},
-        'isapa128_enc_dec_500x': {'start_e': 2.52457, 'stop_e': 43.73854, 'start_d': 46.71072, 'stop_d': 87.92560}, 
-        'isapa128Armv7_enc_dec_500x': {'start_e': 2.48072, 'stop_e': 10.64315, 'start_d': 13.61578, 'stop_d': 21.77845}, 
-        'isapa128a_enc_dec_500x': {'start_e': 2.33187, 'stop_e': 37.52490, 'start_d': 40.49805, 'stop_d': 75.68812}, 
-        'isapa128aArmv7_enc_dec_500x': {'start_e': 2.51144, 'stop_e': 8.55285, 'start_d': 11.52593, 'stop_d': 17.56767}, 
-        'sparkle128_enc_dec_1000x': {'start_e': 2.35007, 'stop_e': 10.37047, 'start_d': 13.34325, 'stop_d': 21.65767}, # SUS END 
-        'sparkle128Armv7_enc_dec_1000x': {'start_e': 2.52977, 'stop_e': 5.11364, 'start_d': 8.08648, 'stop_d': 10.67053}, 
-        'sparkle256_enc_dec_1000x': {'start_e': 2.07569, 'stop_e': 13.29187, 'start_d': 16.26426, 'stop_d': 27.77032}, 
-        'sparkle256Armv7_enc_dec_1000x': {'start_e': 2.37905, 'stop_e': 6.39388, 'start_d': 9.26414, 'stop_d': 15.24520}, 
-        'tinyjambu_enc_dec_1000x': {'start_e': 2.46432, 'stop_e': 24.90874, 'start_d': 27.88129, 'stop_d': 50.30585}, 
-        'tinyjambuOpt_enc_dec_1000x': {'start_e': 2.55719, 'stop_e': 16.51569, 'start_d': 19.48920, 'stop_d': 33.42918}, 
-        'giftc_enc_dec_200x': {'start_e': 1.97305, 'stop_e': 41.96765, 'start_d': 44.94041, 'stop_d': 84.93631}, 
-        'xoodyak_enc_dec_1000x': {'start_e': 2.59438, 'stop_e': 43.55850, 'start_d': 46.53142, 'stop_d': 87.35707}, 
-        'romulusn_enc_dec_50x': {'start_e': 2.50744, 'stop_e': 19.61178, 'start_d': 22.58508, 'stop_d': 39.70875}, 
-        'romulusnOpt_enc_dec_50x': {'start_e': 2.51312, 'stop_e': 3.66764, 'start_d': 6.64118, 'stop_d': 7.79345}, 
-        'eleph_enc_dec_10x': {'start_e': 2.44766, 'stop_e': 39.11380, 'start_d': 42.08640, 'stop_d': 78.74528}, 
-        'grain_enc_dec_10x': {'start_e': 2.46674, 'stop_e': 33.17888, 'start_d': 36.15913, 'stop_d': 66.77305}, 
-        'photon_enc_dec_15x': {'start_e': 2.55105, 'stop_e': 37.63255, 'start_d': 40.60511, 'stop_d': 75.68681}, 
+        'row' : 74,
+        'ascon128_enc_dec_1000x': {'start_e': 2.19497, 'stop_e': 15.52515, 'start_d': 18.49606, 'stop_d': 31.82673}, 
+        'ascon128Armv7_enc_dec_1000x': {'start_e': 2.52028, 'stop_e': 7.21395, 'start_d': 10.18558, 'stop_d': 14.93431}, 
+        'ascon128a_enc_dec_1000x': {'start_e': 2.22859, 'stop_e': 12.14822, 'start_d': 15.11912, 'stop_d': 25.13771}, 
+        'ascon128aArmv7_enc_dec_1000x': {'start_e': 2.51266, 'stop_e': 5.60458, 'start_d': 8.57539, 'stop_d': 11.67173}, 
+        'isapa128_enc_dec_500x': {'start_e': 2.54950, 'stop_e': 46.71981, 'start_d': 46.68981, 'stop_d': 89.88449}, # sus
+        'isapa128Armv7_enc_dec_500x': {'start_e': 2.45094, 'stop_e': 10.61026, 'start_d': 13.58160, 'stop_d': 21.74039}, 
+        'isapa128a_enc_dec_500x': {'start_e': 2.48691, 'stop_e': 37.66298, 'start_d': 40.63602, 'stop_d': 75.77874}, 
+        'isapa128aArmv7_enc_dec_500x': {'start_e': 2.58376, 'stop_e': 8.62254, 'start_d': 11.59431, 'stop_d': 17.63318}, 
+        'sparkle128_enc_dec_1000x': {'start_e': 2.55826, 'stop_e': 10.57480, 'start_d': 13.54620, 'stop_d': 21.85653}, 
+        'sparkle128Armv7_enc_dec_1000x': {'start_e': 1.92351, 'stop_e': 4.50608, 'start_d': 7.47741, 'stop_d': 10.06020}, 
+        'sparkle256_enc_dec_1000x': {'start_e': 2.58835, 'stop_e': 13.80032, 'start_d': 16.77192, 'stop_d': 28.27365}, 
+        'sparkle256Armv7_enc_dec_1000x': {'start_e': 2.53406, 'stop_e': 6.54694, 'start_d': 9.51860, 'stop_d': 13.51573}, 
+        'tinyjambu_enc_dec_1000x': {'start_e': 2.11337, 'stop_e': 24.54466, 'start_d': 27.51554, 'stop_d': 49.92681}, 
+        'tinyjambuOpt_enc_dec_1000x':{'start_e': 2.57750, 'stop_e': 16.52796, 'start_d': 19.49972, 'stop_d': 33.43118}, 
+        'giftc_enc_dec_200x': {'start_e': 1.94908, 'stop_e': 41.92482, 'start_d': 44.89591, 'stop_d': 84.87035}, 
+        'xoodyak_enc_dec_1000x': {'start_e': 2.52158, 'stop_e': 43.46715, 'start_d': 46.43804, 'stop_d': 87.23640}, 
+        'romulusn_enc_dec_50x': {'start_e': 2.64402, 'stop_e': 19.66502, 'start_d': 22.68241, 'stop_d': 39.74321}, 
+        'romulusnOpt_enc_dec_500x': {'start_e': 2.42527, 'stop_e': 13.96480, 'start_d': 16.93636, 'stop_d': 28.45291}, 
+        'eleph_enc_dec_10x': {'start_e': 2.52689, 'stop_e': 39.17314, 'start_d': 42.14421, 'stop_d': 78.78620}, 
+        'grain_enc_dec_10x': {'start_e': 1.78046, 'stop_e': 32.47617, 'start_d': 35.44721, 'stop_d': 66.05283}, 
+        'photon_enc_dec_15x': {'start_e': 2.42941, 'stop_e': 37.49502, 'start_d': 40.46615, 'stop_d': 75.52707}, 
     }    
 }
 
-plot_all_bool = False
+
+plot_all_bool = True
+run = "03_Run3"
+Opt = "Os"
 # apps = ["ascon128_enc_dec_1000x", "ascon128Armv7_enc_dec_1000x", "ascon128a_enc_dec_1000x", "ascon128aArmv7_enc_dec_1000x"]
 # apps = ["isapa128_enc_dec_500x", "isapa128Armv7_enc_dec_500x", "isapa128a_enc_dec_500x", "isapa128aArmv7_enc_dec_500x", ]
 # apps = [ "sparkle128_enc_dec_1000x", "sparkle128Armv7_enc_dec_1000x", "sparkle256_enc_dec_1000x", "sparkle256Armv7_enc_dec_1000x"]
 # apps = ["tinyjambu_enc_dec_1000x", "tinyjambuOpt_enc_dec_1000x", "giftc_enc_dec_200x", "xoodyak_enc_dec_1000x",]
-apps = [ "romulusn_enc_dec_50x" , "romulusnOpt_enc_dec_50x", "eleph_enc_dec_10x","grain_enc_dec_10x", "photon_enc_dec_15x"]
+# apps = [ "romulusn_enc_dec_50x" , "romulusnOpt_enc_dec_500x", "eleph_enc_dec_10x","grain_enc_dec_10x", "photon_enc_dec_15x"]
 
-# apps  = ["ascon128Armv7_enc_dec_1000x"]
+apps  = ["ascon128Armv7_enc_dec_1000x"]
 def plot_all():
     dfs = []
     t = time.time()
     for app in apps:
         print("Reading ", app, apps.index(app))
-        data_dir = "../Data/Power/python_plots/02_csv_dir/02_run2/O2/" + app + "/"
+        data_dir = "../Data/Power/python_plots/02_csv_dir/"+ run + "/" + Opt + "/" + app + "/"
         files = os.listdir(data_dir)
 
         # Filter out only CSV files
@@ -220,15 +234,22 @@ def plot_all():
     for app in apps:
         t = time.time()
         x_values= df[app + 'x']/1e3
-        y_values = df[app + 'y']/1e6
+        y_values = df[app + 'y']/1e3
+        
+        # start_e': , 'stop_e': , 'start_d': , 'stop_d': 
         # Plotting the graph
-        plt.plot(x_values, y_values, linestyle='-') 
+        plt.plot(x_values, y_values, linestyle='-', color='yellow') 
         # plt.figure()
         plt.xlabel('Time (s)') 
-        plt.ylabel('Current (A)') 
+        plt.ylabel('Current (mA)') 
         plt.title(app) 
         # plt.text(4.28073, 0.047, "Start of program", fontsize=12, ha='center', va='center', color='black')
-        plt.grid(True)
+        plt.xlim=((2.5, 15))
+        # plt.axvline(x=2.52028, color='black', linestyle='--', linewidth=3)
+        # plt.axvline(x=7.21395, color='black', linestyle='--', linewidth=3)
+        # plt.axvline(x=10.18558, color='black', linestyle='--', linewidth=3)
+        # plt.axvline(x=14.93431, color='black', linestyle='--', linewidth=3)
+        plt.grid()
         print(time.time() - t)
         plt.show()
 
@@ -331,10 +352,10 @@ def main(ts_dict):
 
         for app, data in ts_dict.items():
             if app in data_dir:
-                x_start_e = data['start_e']
-                x_stop_e = data['stop_e']
-                x_start_d = data['start_d']
-                x_stop_d = data['stop_d']
+                x_start_e = round(data['start_e'],5)
+                x_stop_e = round(data['stop_e'],5)
+                x_start_d = round(data['start_d'],5)
+                x_stop_d = round(data['stop_d'],5)
 
         # energy calculation - encryption
         # x_start_e = 1.180800
@@ -367,46 +388,47 @@ def main(ts_dict):
         t_avg_d = round((x_stop_d-x_start_d)/n_loop,5)
 
         # Store results in a text file
-        f = open(output, "w") 
-        f.close()
-        f = open(output, "a")
-        if f.closed:
-            print("File not open!!")
-        f.write(output)
-        f.write(": \n")
-        f.write("Execution time: \n")
-        f.write("\tEncryption start time:\t\t%f s\n" % x_start_e)
-        f.write("\tEncryption end time:\t\t%f s\n" % x_stop_e)
-        f.write("\tDecryption start time:\t\t%f s\n" % x_start_d)
-        f.write("\tDecryption end time:\t\t%f s\n" % x_stop_d)
-        f.write("\tAverage encryption time:\t%f s\n" % (t_avg_e))
-        f.write("\tAverage decryption time:\t%f s\n\n" % (t_avg_d))
-        f.write("Energy consumption: \n")
-        f.write("\tAverage encryption energy: \t%f J\n" % energy_e)
-        f.write("\tAverage decryption energy: \t%f J\n\n" % energy_d)
-        f.write("Encryption current: \n")
-        f.write("\tMaximum encryption current: %f A\n" % i_e_max)
-        f.write("\tAverage encryption current: %f A\n" % i_e_avg)
-        f.write("\tMinimum encryption current: %f A\n\n" % i_e_min)
-        f.write("Decryption current: \n")
-        f.write("\tMaximum decryption current: %f A\n" % i_d_max)
-        f.write("\tAverage decryption current: %f A\n" % i_d_avg)
-        f.write("\tMinimum decryption current: %f A\n\n" % i_d_min)
-        f.write("Notes: \n")
-        f.write("\tN_LOOP:\t\t\t\t\t\t%d\n" % n_loop)
-        # f.write("\tCalibrated: \t\t\t\t%s\n" % calibrated)
-        f.write("\tNum Calibrations: \t\t\t%d\n" % n_calibrated)
-        f.write("\tCalibration time(s): \t\t")
-        if not calibrated:
-            f.write("N/A")
-        else:
-            for t in t_calibrations:
-                f.write("%.5f s\t" % (round(t/100000,5)))
-            f.write("\n\tRemoved " + str(n_lcutoff_points) + " samples(s) below " + str(l_cut_off) + "A")
-            f.write(" and " + str(n_hcutoff_points) + " above " + str(h_cut_off) + "A")
-        f.close
+        # f = open(output, "w") 
+        # f.close()
+        # f = open(output, "a")
+        # if f.closed:
+        #     print("File not open!!")
+        # f.write(output)
+        # f.write(": \n")
+        # f.write("Execution time: \n")
+        # f.write("\tEncryption start time:\t\t%f s\n" % x_start_e)
+        # f.write("\tEncryption end time:\t\t%f s\n" % x_stop_e)
+        # f.write("\tDecryption start time:\t\t%f s\n" % x_start_d)
+        # f.write("\tDecryption end time:\t\t%f s\n" % x_stop_d)
+        # f.write("\tAverage encryption time:\t%f s\n" % (t_avg_e))
+        # f.write("\tAverage decryption time:\t%f s\n\n" % (t_avg_d))
+        # f.write("Energy consumption: \n")
+        # f.write("\tAverage encryption energy: \t%f J\n" % energy_e)
+        # f.write("\tAverage decryption energy: \t%f J\n\n" % energy_d)
+        # f.write("Encryption current: \n")
+        # f.write("\tMaximum encryption current: %f A\n" % i_e_max)
+        # f.write("\tAverage encryption current: %f A\n" % i_e_avg)
+        # f.write("\tMinimum encryption current: %f A\n\n" % i_e_min)
+        # f.write("Decryption current: \n")
+        # f.write("\tMaximum decryption current: %f A\n" % i_d_max)
+        # f.write("\tAverage decryption current: %f A\n" % i_d_avg)
+        # f.write("\tMinimum decryption current: %f A\n\n" % i_d_min)
+        # f.write("Notes: \n")
+        # f.write("\tN_LOOP:\t\t\t\t\t\t%d\n" % n_loop)
+        # # f.write("\tCalibrated: \t\t\t\t%s\n" % calibrated)
+        # f.write("\tNum Calibrations: \t\t\t%d\n" % n_calibrated)
+        # f.write("\tCalibration time(s): \t\t")
+        # if not calibrated:
+        #     f.write("N/A")
+        # else:
+        #     for t in t_calibrations:
+        #         f.write("%.5f s\t" % (round(t/100000,5)))
+        #     f.write("\n\tRemoved " + str(n_lcutoff_points) + " samples(s) below " + str(l_cut_off) + "A")
+        #     f.write(" and " + str(n_hcutoff_points) + " above " + str(h_cut_off) + "A")
+        # f.close
         values = [n_loop, t_avg_e, t_avg_d,  energy_e, energy_d,
           i_e_max, i_e_avg, i_e_min, i_d_max, i_d_avg, i_d_min, n_calibrated,', '.join(map(str, t_calibrations/100000))]
+        # values = [x_start_d - x_stop_e]
 
 
     else: 
@@ -444,16 +466,32 @@ else:
         t = time.time()
         for opt, data in timestamps.items():
             print(opt)
-            col = 3
             for app, values in data.items():
                 if not 'row' in app:
+                    # find col
+                    col_found = False
+                    for col in list(AUT):
+                        # print(col.name, app)
+                        if app.lower() == col.name.lower():
+                            col = col.value
+                            col_found = True
+                            break
+                    if not col_found:
+                        if ("romulusnOpt" in app) and ("500x" in app):
+                            col = AUT.romulusnOpt_enc_dec_500x.value
+                            col_found = True
+
+                    if not col_found:
+                        print("Data not stored - col not found!")
+                        break
+                         
                     print(app)
-                    data_dir = "../Data/Power/python_plots/02_csv_dir/02_run2/" + opt +"/" + app + "/"
+                    data_dir = "../Data/Power/python_plots/02_csv_dir/" + run + "/" + opt +"/" + app + "/"
                     output = "../Data/Power/python_plots/00_Output/02_run2/" + opt +"/"  + app + ".txt"
                     # print(app)
                     main(data)
                     writexl(col, row)
-                    col +=1
+                    # col +=1
                 else:
                     row = values
                     # print("Row ", values)
